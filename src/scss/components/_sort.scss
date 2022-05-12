@@ -16,6 +16,9 @@ $duration: 0.15s;
 
     svg {
       margin-right: 8px;
+      &.rotaded{
+        transform: rotate(180deg);
+      }
     }
 
     b {
