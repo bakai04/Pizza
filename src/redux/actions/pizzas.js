@@ -1,4 +1,5 @@
 const setPizzas=(items)=>({
     type:"SET_PIZZAS",
-        payload:items,
+    payload:items,
 })
+export default setPizzas;

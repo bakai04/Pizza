@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames';
 import PropTypes from "prop-types";
-function PizzaItem({id, name,types, sizes, price, category, rating}) {
+function PizzaItem({id, name, types, sizes, price, category, rating}) {
     const type=["тонкое", "традиционное"];
     const size=[26, 30, 40];
     const [activeType, setActiveType]=useState(types[0]);
