@@ -5,7 +5,10 @@ import { setCategory, setSortBy } from '../redux/actions/filters';
 import { fetchPizzas } from "../redux/actions/pizzas";
 function Home() {
   const Iscategory=["Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-  const SortItem=[{name:"популярности", type: "popular"}, {name:"цене", type:"price"}, {name:"алфавиту", type:"alphabet"}];
+  const SortItem=[
+    {name:"популярности", type: "rating", order: "desc"},
+    {name:"цене", type:"price", order: "desc"},
+    {name:"алфавиту", type:"name", order: "asc"}];
   const dispatch=useDispatch();
   
    
@@ -15,20 +18,25 @@ function Home() {
       items: pizzas.items,
     }
   });
+
+  
   const onClickItem=useCallback((index)=>{
     dispatch(setCategory(index));
   },[])
+  
   const onSelectSort=(type)=>{
     dispatch(setSortBy(type));
   }
+
 
   const {isLoaded}=useSelector(({pizzas})=>{
     return{
       isLoaded: pizzas.isLoaded,
     }
   });
+
   const {category, filtersBy}=useSelector(({filters})=>filters);
-  console.log(category)
+
   useEffect(()=>{
     dispatch(fetchPizzas(category, filtersBy))
   },[category, filtersBy ])
@@ -40,7 +48,7 @@ function Home() {
           activeCategory={category}
           onClickCategory={onClickItem}      
           items={Iscategory} />
-        <SortPopup items={SortItem} activeSortPopup={filtersBy} onSelectSort={onSelectSort}/>
+        <SortPopup items={SortItem} activeSortPopup={filtersBy.type} onSelectSort={onSelectSort}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

@@ -5,9 +5,9 @@ export const setLoaded=(payload)=>({
     payload,
 })
 export const fetchPizzas=(category, filtersBy)=>(dispatch)=>{
+    console.log(filtersBy)
     dispatch(setLoaded(false))
-    axios(`http://localhost:3001/pizzas?category=${category}`).then(({data})=> dispatch(setPizzas(data)))
-    console.log("Sdfsdf")
+    axios(`http://localhost:3001/pizzas?${category!==null ? 'category='+category:""}&_sort=${filtersBy.type}&_order=${filtersBy.order}`).then(({data})=> dispatch(setPizzas(data)))
 }
 
 const setPizzas=(items)=>({

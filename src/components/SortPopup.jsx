@@ -41,7 +41,7 @@ function SortPopup({ items,activeSortPopup, onSelectSort }) {
                 (<div className="sort__popup">
                     <ul>
                         {items.map((item, index)=>(
-                            <li className={(item.type===activeSortPopup)? "active": ""} key={`${item}"_"${index}`}onClick={()=>onSelectItem(index, item.type)}>{item.name}</li>
+                            <li className={(item.type===activeSortPopup)? "active": ""} key={`${item}"_"${index}`}onClick={()=>onSelectItem(index, item)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>)}
