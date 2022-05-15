@@ -1,10 +1,19 @@
 const initialState={
-    category:0,
+    category: null,
     filtersBy:'popular'
 }
 const filters=(state=initialState, action)=>{
     if(action.type==='SET_SORT_BY'){
-        return{...state, sortBy: action.payload}
+        return{
+            ...state, 
+            filtersBy: action.payload
+        }
+    }
+    if(action.type==='SET_CATEGORY'){
+        return{
+            ...state,
+            category:action.payload
+        }
     }
     return state
 

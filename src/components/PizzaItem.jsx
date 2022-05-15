@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames';
 import PropTypes from "prop-types";
+
 function PizzaItem({id, name, types, sizes, price, category, rating}) {
     const type=["тонкое", "традиционное"];
     const size=[26, 30, 40];
@@ -12,6 +13,7 @@ function PizzaItem({id, name, types, sizes, price, category, rating}) {
     const onSelectSize=(index)=>{
         setActiveSize(index)
     }
+
   return (
     <div><div className="pizza-block">
     <img
