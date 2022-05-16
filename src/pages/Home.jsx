@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Categories, SortPopup, PizzaItem, LoadingBlock } from "../components/index";
+import { addPizzaToCart } from '../redux/actions/cart';
 import { setCategory, setSortBy } from '../redux/actions/filters';
 import { fetchPizzas } from "../redux/actions/pizzas";
 function Home() {
@@ -11,15 +12,18 @@ function Home() {
     {name:"алфавиту", type:"name", order: "asc"}];
   const dispatch=useDispatch();
   
-   
+  const onAddPizza=(obj)=>{
+    dispatch(addPizzaToCart(obj))
+  }
 
   const {items}=useSelector(({pizzas})=>{
     return{
       items: pizzas.items,
     }
   });
+  const cartItems=useSelector(({Cart})=>Cart.items);
 
-  
+
   const onClickItem=useCallback((index)=>{
     dispatch(setCategory(index));
   },[])
@@ -56,6 +60,8 @@ function Home() {
           <PizzaItem
             key={item.id}
             {...item}
+            onAddPizza={onAddPizza}
+            pizzaCount={cartItems[item.id] && cartItems[item.id].length}
           />
         )) : Array(12).fill(0).map((_, index)=><LoadingBlock key={index}/>)}
       </div>

@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 import classNames from 'classnames';
 import PropTypes from "prop-types";
 
-function PizzaItem({id, name, types, sizes, price, category, rating}) {
+function PizzaItem({id, name, types, sizes, price, onAddPizza ,pizzaCount}) {
     const type=["тонкое", "традиционное"];
     const size=[26, 30, 40];
     const [activeType, setActiveType]=useState(types[0]);
-    const [activeSize, setActiveSize]=useState(types[0]);
+    const [activeSize, setActiveSize]=useState(0);
     const onSelectType=(index)=>{
         setActiveType(index)
     }
     const onSelectSize=(index)=>{
         setActiveSize(index)
     }
+    const handleAddPizza=()=>onAddPizza({id, name, type:type[activeType], size:sizes[activeSize], price})
 
   return (
     <div><div className="pizza-block">
@@ -44,7 +45,7 @@ function PizzaItem({id, name, types, sizes, price, category, rating}) {
     </div>
     <div className="pizza-block__bottom">
       <div className="pizza-block__price">от {price} ₽</div>
-      <div className="button button--outline button--add">
+      <div onClick={handleAddPizza} className="button button--outline button--add">
         <svg
           width="12"
           height="12"
@@ -58,7 +59,7 @@ function PizzaItem({id, name, types, sizes, price, category, rating}) {
           />
         </svg>
         <span>Добавить</span>
-        <i>2</i>
+        {pizzaCount && <i>{pizzaCount}</i>}
       </div>
     </div>
   </div> </div>
@@ -70,6 +71,8 @@ PizzaItem.propTypes={
     price: PropTypes.number,
     types: PropTypes.arrayOf(PropTypes.number).isRequired,
     sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onAddPizza:PropTypes.func,
+    pizzaCount: PropTypes.number
 };
 PizzaItem.defaultProps={
     name:"----",
@@ -77,4 +80,4 @@ PizzaItem.defaultProps={
     price: 0,
     types:[],
 }
-export default PizzaItem
+export default PizzaItem;
